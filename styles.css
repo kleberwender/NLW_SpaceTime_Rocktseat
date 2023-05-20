@@ -1,0 +1,203 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 16px;
+}
+
+::-webkit-scrollbar {
+  /*O scrollbar total*/
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  /* Scrollbar Track é o caminho do scroll*/
+  background-color: #2c2c31;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  /*_ scrollbar thumb é a barra do scroll*/
+  background-color: #9e9ea0;
+  border-radius: 8px;
+}
+
+@keyframes entering {
+  from {
+    opacity: 0;
+    transform: translateY(-200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body {
+  background-color: #121215;
+  color: #eaeaea;
+  font-family: "Roboto", sans-serif;
+
+  /*Grid Layout*/
+  display: grid; /*Display grid*/
+  grid-template-areas: "profile timeline";
+  /*
+    * O grid template areas recebe as áreas que queremos
+    * colocar em coluna e linha.
+  */
+  grid-template-columns: 1fr 1fr;
+  /*
+    * O grid template columns recebe o tamanho que queremos
+    * que a coluna tenha, seja como px, em, rem, %,
+    * fr(fração) e etc.
+  */
+  grid-template-rows: 100vh;
+  /*
+    * O Grid template rows revebe o tamanho que queremos
+    * que a linha tenha, seja como px, em, rem, %.
+  */
+}
+
+nav {
+  padding: 64px;
+  grid-area: timeline;
+  /*
+    * O grid area recebe o valor da propriedade
+    * grid template areas que foi configurado na tag body
+  */
+
+  overflow-y: scroll;
+  /*
+    * Aqui estamos deixando o overflow na vertical só na tag nav
+    * então o conteúdo do lado esquerdo da página não vai ter scroll.
+  */
+
+  animation: entering 0.7s ease-in-out;
+}
+
+.memory {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-decoration: none;
+  margin-bottom: 64px;
+}
+.memory small {
+  color: #bebebf;
+  font-size: 0.78rem;
+}
+.memory h1 {
+  font-size: 2rem;
+  color: #eaeaea;
+}
+.memory img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  /*
+   * A propriedade object-fit recebendo cover deixa a imagem  
+   * com tamanho proporcional a uma capa, 
+   * em vez da imagem esticar para preencher 
+   * o tamanho da página, ela vai aumentar o seu tamanho e diminuir
+   * para que a imagem não estique ficando distorcida.
+  */
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+  /*
+    * Obs.: Ao criar um efeito em uma tag por exemplo o evento
+    * houver com a propriedade transform com a scale(1.1).
+    * para salentiar o efeito podemos usar uma
+    * propriedade chamada transition, e nessa propriedade passamos
+    * a propria propriedade que usamos no evento houver.
+    * Ou seja toda vez que usamos um evento de qualquer tipo em um 
+    * tag, e queremos usamos um evento para deixar o  evento
+    * da tag mais bonito ou mais suave, usamos o evento na tag de  * origem e passamos o proprio evento que foi feito na tag do  
+    * evento na tag de origem, sempre deve ser usado assim.
+  */
+}
+.memory div {
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.memory:hover img {
+  transform: scale(1.1);
+}
+
+.memory p {
+  font-size: 1.2rem;
+  color: #bebebf;
+  line-height: 28px;
+}
+
+aside {
+  grid-area: profile;
+  /*
+    * O grid area recebe o valor profile que foi 
+    * configurado na tag body no grid-template-areas
+  */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /*Alinhamento Horizontal <---->*/
+  justify-content: center; /*Alinhamento Vertical | */
+  gap: 20px;
+  border-right: 1px solid;
+  border-image: linear-gradient(#727275, #2c2c31) 1;
+
+  background-image: url("./assets/background.svg");
+  background-position: top right;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+}
+
+aside * {
+  animation: entering 0.7s ease-in-out;
+}
+
+aside img:nth-child(2) {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 4px solid transparent;
+  background: linear-gradient(#d39e33, #ed5636, #633bbc) padding-box,
+    linear-gradient(260deg, #d39e33, #ed5636, #633bbc) border-box;
+}
+
+aside p {
+  font-size: 2rem;
+  text-align: center;
+}
+
+aside span {
+  font-size: 0.75rem;
+  color: #9e9ea0;
+}
+
+/*Responsividade do site*/
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px;
+  }
+  body {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 0.2fr 0.8fr;
+    grid-template-areas:
+      "profile"
+      "timeline";
+  }
+
+  aside {
+    border-right: none;
+    padding: 32px 12px;
+  }
+
+  nav {
+    overflow-y: visible;
+    padding: 22px;
+  }
+}
